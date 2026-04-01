@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Open Account{% endblock %}
+{% block page_title %}Open New Account{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header"><h2>Account Details</h2></div>
+  <div class="card-body" style="padding:24px;">
+    <form method="post" class="form-wrap">
+      <div class="form-group">
+        <label>Customer</label>
+        <select name="customer_id" required>
+          <option value="">-- Select Customer --</option>
+          {% for c in customers %}
+          <option value="{{ c.customer_id }}">{{ c.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Branch</label>
+        <select name="branch_id" required>
+          <option value="">-- Select Branch --</option>
+          {% for b in branches %}
+          <option value="{{ b.branch_id }}">{{ b.branch_name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Account Type</label>
+        <select name="account_type" required>
+          <option>Checking</option>
+          <option>Savings</option>
+          <option>Business</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Status</label>
+        <select name="status">
+          <option>Active</option>
+          <option>Inactive</option>
+          <option>Closed</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Opening Balance ($)</label>
+        <input type="number" name="balance" step="0.01" min="0" value="0.00" required>
+      </div>
+      <div class="form-group">
+        <label>Open Date</label>
+        <input type="date" name="open_date" required value="{{ today }}">
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Open Account</button>
+        <a href="{{ url_for('accounts') }}" class="btn btn-outline">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Customers{% endblock %}
+{% block page_title %}Customers{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <h2>All Customers</h2>
+    <a href="{{ url_for('add_customer') }}" class="btn btn-primary btn-sm">+ Add Customer</a>
+  </div>
+  <div class="card-body">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Address</th><th>Date of Birth</th><th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for c in customers %}
+        <tr>
+          <td>{{ c.customer_id }}</td>
+          <td>{{ c.first_name }} {{ c.last_name }}</td>
+          <td>{{ c.email }}</td>
+          <td>{{ c.phone_num }}</td>
+          <td>{{ c.address }}</td>
+          <td>{{ c.date_of_birth }}</td>
+          <td class="text-right">
+            <a href="{{ url_for('edit_customer', cid=c.customer_id) }}" class="btn btn-outline btn-sm">Edit</a>
+            <form action="{{ url_for('delete_customer', cid=c.customer_id) }}" method="post" style="display:inline"
+                  onsubmit="return confirm('Delete this customer?')">
+              <button class="btn btn-danger btn-sm">Delete</button>
+            </form>
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="7" style="text-align:center;color:#999;padding:24px;">No customers found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

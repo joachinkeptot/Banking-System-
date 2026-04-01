@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Banking System{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">🏦 <span>Bank</span>System</div>
+    <nav>
+      <a href="{{ url_for('dashboard') }}"    class="{{ 'active' if request.endpoint == 'dashboard' }}">
+        <span class="icon">📊</span> Dashboard
+      </a>
+      <a href="{{ url_for('customers') }}"    class="{{ 'active' if 'customer' in request.endpoint }}">
+        <span class="icon">👤</span> Customers
+      </a>
+      <a href="{{ url_for('accounts') }}"     class="{{ 'active' if 'account' in request.endpoint }}">
+        <span class="icon">🏧</span> Accounts
+      </a>
+      <a href="{{ url_for('transactions') }}" class="{{ 'active' if 'transaction' in request.endpoint }}">
+        <span class="icon">💸</span> Transactions
+      </a>
+      <a href="{{ url_for('loans') }}"        class="{{ 'active' if 'loan' in request.endpoint }}">
+        <span class="icon">📋</span> Loans
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main -->
+  <div class="main">
+    <div class="topbar">{% block page_title %}{% endblock %}</div>
+    <div class="content">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <ul class="flashes">
+            {% for cat, msg in messages %}
+              <li class="{{ cat }}">{{ msg }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </div>
+  </div>
+
+</body>
+</html>

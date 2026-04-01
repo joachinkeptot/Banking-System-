@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Transactions{% endblock %}
+{% block page_title %}Transactions{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <h2>Recent Transactions</h2>
+    <a href="{{ url_for('add_transaction') }}" class="btn btn-primary btn-sm">+ New Transaction</a>
+  </div>
+  <div class="card-body">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th><th>Customer</th><th>Account</th><th>Type</th><th>Amount</th><th>Currency</th><th>Description</th><th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for tx in transactions %}
+        <tr>
+          <td>{{ tx.transaction_id }}</td>
+          <td>{{ tx.customer_name }}</td>
+          <td>#{{ tx.account_id }}</td>
+          <td>
+            {% if tx.type == 'Deposit' %}
+              <span class="badge badge-green">Deposit</span>
+            {% elif tx.type == 'Withdrawal' %}
+              <span class="badge badge-red">Withdrawal</span>
+            {% elif tx.type == 'Transfer' %}
+              <span class="badge badge-blue">Transfer</span>
+            {% else %}
+              <span class="badge badge-gray">{{ tx.type }}</span>
+            {% endif %}
+          </td>
+          <td>${{ "%.2f"|format(tx.amount) }}</td>
+          <td>{{ tx.currency_type }}</td>
+          <td>{{ tx.description or '—' }}</td>
+          <td>{{ tx.date }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="8" style="text-align:center;color:#999;padding:24px;">No transactions yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

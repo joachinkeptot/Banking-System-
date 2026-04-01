@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — Banking System{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<!-- Stat Cards -->
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="icon">👤</div>
+    <div class="label">Customers</div>
+    <div class="value">{{ stats.customers }}</div>
+  </div>
+  <div class="stat-card">
+    <div class="icon">🏧</div>
+    <div class="label">Accounts</div>
+    <div class="value">{{ stats.accounts }}</div>
+  </div>
+  <div class="stat-card">
+    <div class="icon">💸</div>
+    <div class="label">Transactions</div>
+    <div class="value">{{ stats.transactions }}</div>
+  </div>
+  <div class="stat-card">
+    <div class="icon">📋</div>
+    <div class="label">Active Loans</div>
+    <div class="value">{{ stats.loans }}</div>
+  </div>
+</div>
+
+<!-- Recent Transactions -->
+<div class="card">
+  <div class="card-header">
+    <h2>Recent Transactions</h2>
+    <a href="{{ url_for('add_transaction') }}" class="btn btn-primary btn-sm">+ New Transaction</a>
+  </div>
+  <div class="card-body">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Account</th>
+          <th>Type</th>
+          <th>Amount</th>
+          <th>Currency</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for tx in recent_tx %}
+        <tr>
+          <td>{{ tx.transaction_id }}</td>
+          <td>#{{ tx.account_id }}</td>
+          <td>
+            {% if tx.type == 'Deposit' %}
+              <span class="badge badge-green">Deposit</span>
+            {% elif tx.type == 'Withdrawal' %}
+              <span class="badge badge-red">Withdrawal</span>
+            {% elif tx.type == 'Transfer' %}
+              <span class="badge badge-blue">Transfer</span>
+            {% else %}
+              <span class="badge badge-gray">{{ tx.type }}</span>
+            {% endif %}
+          </td>
+          <td>${{ "%.2f"|format(tx.amount) }}</td>
+          <td>{{ tx.currency_type }}</td>
+          <td>{{ tx.date }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6" style="text-align:center;color:#999;padding:24px;">No transactions yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

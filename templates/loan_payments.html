@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Loan #{{ loan.loan_id }} Payments{% endblock %}
+{% block page_title %}Loan #{{ loan.loan_id }} — Payments{% endblock %}
+
+{% block content %}
+
+<!-- Loan Summary -->
+<div class="card" style="margin-bottom:24px;">
+  <div class="card-header"><h2>Loan Summary</h2></div>
+  <div class="card-body" style="padding:20px 24px;">
+    <table style="max-width:500px;">
+      <tr><td style="color:#888;width:160px;">Type</td><td>{{ loan.loan_type }}</td></tr>
+      <tr><td style="color:#888;">Principal</td><td>${{ "%.2f"|format(loan.amount) }}</td></tr>
+      <tr><td style="color:#888;">Interest Rate</td><td>{{ loan.interest_rate }}%</td></tr>
+      <tr><td style="color:#888;">Period</td><td>{{ loan.start_date }} → {{ loan.end_date }}</td></tr>
+      <tr><td style="color:#888;">Status</td><td>{{ loan.status }}</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- Add Payment -->
+<div class="card" style="margin-bottom:24px;">
+  <div class="card-header"><h2>Record Payment</h2></div>
+  <div class="card-body" style="padding:24px;">
+    <form method="post" class="form-wrap" style="max-width:400px;">
+      <div class="form-group">
+        <label>Amount Paid ($)</label>
+        <input type="number" name="amount_paid" step="0.01" min="0.01" required>
+      </div>
+      <div class="form-group">
+        <label>Payment Date</label>
+        <input type="date" name="payment_date" required>
+      </div>
+      <div class="form-group">
+        <label>Remaining Balance ($)</label>
+        <input type="number" name="remaining_balance" step="0.01" min="0" required>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Record Payment</button>
+        <a href="{{ url_for('loans') }}" class="btn btn-outline">Back to Loans</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Payment History -->
+<div class="card">
+  <div class="card-header"><h2>Payment History</h2></div>
+  <div class="card-body">
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Amount Paid</th><th>Date</th><th>Remaining Balance</th></tr>
+      </thead>
+      <tbody>
+        {% for p in payments %}
+        <tr>
+          <td>{{ p.payment_id }}</td>
+          <td>${{ "%.2f"|format(p.amount_paid) }}</td>
+          <td>{{ p.payment_date }}</td>
+          <td>${{ "%.2f"|format(p.remaining_balance) }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="4" style="text-align:center;color:#999;padding:24px;">No payments recorded yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

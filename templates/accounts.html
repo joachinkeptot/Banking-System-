@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Accounts{% endblock %}
+{% block page_title %}Accounts{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <h2>All Accounts</h2>
+    <a href="{{ url_for('add_account') }}" class="btn btn-primary btn-sm">+ Open Account</a>
+  </div>
+  <div class="card-body">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th><th>Customer</th><th>Branch</th><th>Type</th><th>Status</th><th>Balance</th><th>Open Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for a in accounts %}
+        <tr>
+          <td>#{{ a.account_id }}</td>
+          <td>{{ a.customer_name }}</td>
+          <td>{{ a.branch_name }}</td>
+          <td><span class="badge badge-blue">{{ a.account_type }}</span></td>
+          <td>
+            {% if a.status == 'Active' %}
+              <span class="badge badge-green">Active</span>
+            {% elif a.status == 'Closed' %}
+              <span class="badge badge-red">Closed</span>
+            {% else %}
+              <span class="badge badge-yellow">{{ a.status }}</span>
+            {% endif %}
+          </td>
+          <td>${{ "%.2f"|format(a.balance) }}</td>
+          <td>{{ a.open_date }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="7" style="text-align:center;color:#999;padding:24px;">No accounts found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
