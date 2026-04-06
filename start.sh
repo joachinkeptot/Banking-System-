@@ -92,6 +92,11 @@ if ! mysql $MYSQL_AUTH "$DB_NAME" < schema.sql; then
   exit 1
 fi
 
+if ! mysql $MYSQL_AUTH "$DB_NAME" < seed.sql; then
+  echo "ERROR: Could not load seed data. Check seed.sql for errors."
+  exit 1
+fi
+
 echo "Database ready."
 
 # Open browser after short delay

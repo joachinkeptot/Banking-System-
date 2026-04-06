@@ -4,7 +4,7 @@
 -- ─────────────────────────────────────────────
 -- EMPLOYEE
 -- ─────────────────────────────────────────────
-CREATE TABLE Employee (
+CREATE TABLE IF NOT EXISTS Employee (
     employee_id   INT           PRIMARY KEY AUTO_INCREMENT,
     first_name    VARCHAR(50)   NOT NULL,
     last_name     VARCHAR(50)   NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE Employee (
 -- ─────────────────────────────────────────────
 -- BRANCH
 -- ─────────────────────────────────────────────
-CREATE TABLE Branch (
+CREATE TABLE IF NOT EXISTS Branch (
     branch_id    INT          PRIMARY KEY AUTO_INCREMENT,
     branch_name  VARCHAR(100) NOT NULL,
     address      VARCHAR(255),
@@ -33,7 +33,7 @@ CREATE TABLE Branch (
 -- ─────────────────────────────────────────────
 -- CUSTOMER
 -- ─────────────────────────────────────────────
-CREATE TABLE Customer (
+CREATE TABLE IF NOT EXISTS Customer (
     customer_id   INT          PRIMARY KEY AUTO_INCREMENT,
     first_name    VARCHAR(50)  NOT NULL,
     last_name     VARCHAR(50)  NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE Customer (
 -- ─────────────────────────────────────────────
 -- ACCOUNT
 -- ─────────────────────────────────────────────
-CREATE TABLE Account (
+CREATE TABLE IF NOT EXISTS Account (
     account_id    INT             PRIMARY KEY AUTO_INCREMENT,
     customer_id   INT             NOT NULL,
     branch_id     INT             NOT NULL,
@@ -61,7 +61,7 @@ CREATE TABLE Account (
 -- ─────────────────────────────────────────────
 -- TRANSACTION
 -- ─────────────────────────────────────────────
-CREATE TABLE Transaction (
+CREATE TABLE IF NOT EXISTS Transaction (
     transaction_id  INT             PRIMARY KEY AUTO_INCREMENT,
     account_id      INT             NOT NULL,
     type            ENUM('Deposit', 'Withdrawal', 'Transfer', 'Payment') NOT NULL,
@@ -75,7 +75,7 @@ CREATE TABLE Transaction (
 -- ─────────────────────────────────────────────
 -- LOAN
 -- ─────────────────────────────────────────────
-CREATE TABLE Loan (
+CREATE TABLE IF NOT EXISTS Loan (
     loan_id        INT             PRIMARY KEY AUTO_INCREMENT,
     account_id     INT             NOT NULL,
     loan_type      ENUM('Personal', 'Mortgage', 'Auto', 'Student', 'Business') NOT NULL,
@@ -90,7 +90,7 @@ CREATE TABLE Loan (
 -- ─────────────────────────────────────────────
 -- LOAN_PAYMENT
 -- ─────────────────────────────────────────────
-CREATE TABLE Loan_payment (
+CREATE TABLE IF NOT EXISTS Loan_payment (
     payment_id         INT             PRIMARY KEY AUTO_INCREMENT,
     loan_id            INT             NOT NULL,
     amount_paid        DECIMAL(15, 2)  NOT NULL,
