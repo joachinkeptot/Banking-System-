@@ -19,6 +19,7 @@ cd Banking-System-
 ```
 
 The script will:
+
 - Install Python dependencies
 - Create the `.env` config file
 - Set up the database and load the schema
@@ -92,19 +93,19 @@ DB_NAME=banking_system
 python3 app.py
 ```
 
-Open your browser and go to: **http://localhost:5000**
+Open your browser and go to: **http://127.0.0.1:5000**
 
 ---
 
 ## Pages
 
-| Page | URL | Description |
-|---|---|---|
-| Dashboard | `/` | Summary stats + recent transactions |
-| Customers | `/customers` | View, add, edit, delete customers |
-| Accounts | `/accounts` | View and open accounts |
+| Page         | URL             | Description                             |
+| ------------ | --------------- | --------------------------------------- |
+| Dashboard    | `/`             | Summary stats + recent transactions     |
+| Customers    | `/customers`    | View, add, edit, delete customers       |
+| Accounts     | `/accounts`     | View and open accounts                  |
 | Transactions | `/transactions` | Record deposits, withdrawals, transfers |
-| Loans | `/loans` | Create loans and record payments |
+| Loans        | `/loans`        | Create loans and record payments        |
 
 ---
 
@@ -112,15 +113,15 @@ Open your browser and go to: **http://localhost:5000**
 
 ### Tables
 
-| Table | Description |
-|---|---|
-| `Employee` | Bank staff, with optional self-referencing manager relationship |
-| `Branch` | Physical bank branches, each managed by an employee |
-| `Customer` | Bank customers |
-| `Account` | Customer accounts linked to a branch (Checking, Savings, Business) |
-| `Transaction` | All account transactions (Deposit, Withdrawal, Transfer, Payment) |
-| `Loan` | Loans tied to an account (Personal, Mortgage, Auto, Student, Business) |
-| `Loan_payment` | Individual payments made against a loan |
+| Table          | Description                                                            |
+| -------------- | ---------------------------------------------------------------------- |
+| `Employee`     | Bank staff, with optional self-referencing manager relationship        |
+| `Branch`       | Physical bank branches, each managed by an employee                    |
+| `Customer`     | Bank customers                                                         |
+| `Account`      | Customer accounts linked to a branch (Checking, Savings, Business)     |
+| `Transaction`  | All account transactions (Deposit, Withdrawal, Transfer, Payment)      |
+| `Loan`         | Loans tied to an account (Personal, Mortgage, Auto, Student, Business) |
+| `Loan_payment` | Individual payments made against a loan                                |
 
 ### Entity Relationships
 
